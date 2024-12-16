@@ -1,6 +1,6 @@
 import '@src/Popup.css';
 import { useStorage, withErrorBoundary, withSuspense } from '@extension/shared';
-import { exampleThemeStorage } from '@extension/storage';
+import { exampleThemeStorage, subtitleTrackerStorage } from '@extension/storage';
 import type { ComponentPropsWithoutRef } from 'react';
 
 const notificationOptions = {
@@ -55,6 +55,7 @@ const Popup = () => {
           Click to inject Content Script
         </button>
         <ToggleButton>Toggle theme</ToggleButton>
+        <ToggleTrackerButton>Toggle Tracker</ToggleTrackerButton>
       </header>
     </div>
   );
@@ -71,6 +72,22 @@ const ToggleButton = (props: ComponentPropsWithoutRef<'button'>) => {
         (theme === 'light' ? 'bg-white text-black shadow-black' : 'bg-black text-white')
       }
       onClick={exampleThemeStorage.toggle}>
+      {props.children}
+    </button>
+  );
+};
+
+const ToggleTrackerButton = (props: ComponentPropsWithoutRef<'button'>) => {
+  const trackerStorage = useStorage(subtitleTrackerStorage);
+  console.log('current trackerStorage', trackerStorage);
+  return (
+    <button
+      className={
+        props.className +
+        ' ' +
+        'font-bold mt-4 py-1 px-4 rounded shadow hover:scale-105 bg-white text-black shadow-black'
+      }
+      onClick={subtitleTrackerStorage.toggle}>
       {props.children}
     </button>
   );

@@ -18,7 +18,9 @@ export const exampleThemeStorage: ThemeStorage = {
   ...storage,
   toggle: async () => {
     await storage.set(currentTheme => {
-      return currentTheme === 'light' ? 'dark' : 'light';
+      const toggled = currentTheme === 'light' ? 'dark' : 'light';
+      console.log('toggled theme:', toggled);
+      return toggled;
     });
   },
 };
